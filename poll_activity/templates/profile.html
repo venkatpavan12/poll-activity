@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Poll{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            Profile Details
+        </div>
+        <div class="card-body px-5">
+            <table style="margin:0px auto ;">
+                <tr>
+                    <td class="px-5 py-2"><strong>Username: </strong></td>
+                    <td class="px-5 py-2">
+                        {{user.username}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-5 py-2"><strong>First Name: </strong></td>
+                    <td class="px-5 py-2">
+                        {{user.first_name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-5 py-2"><strong>Last Name: </strong></td>
+                    <td class="px-5 py-2">
+                        {{user.last_name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-5 py-2"><strong>Email: </strong></td>
+                    <td class="px-5 py-2">
+                        {{user.email}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-5 py-2"><strong>Phone no:</strong></td>
+                    <td class="px-5 py-2">
+                        {{user.phone}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-5 py-2"><strong>Polls Created</strong></td>
+                    <td class="px-5 py-2">
+                        {% for poll in polls %}
+                        <li><a href="{% url 'poll' poll.id %}">{{poll.question}}</a></li>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% else %}
+<p>You are not logged in</p>
+
+<a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}

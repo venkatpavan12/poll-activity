@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Poll{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <p>{{poll.question}}</p>
+    <input type="radio" name="option" id="option1" value="{{poll.option1}}"><label for="option1">{{poll.option1}}</label>
+    <input type="radio" name="option" id="option2" value="{{poll.option2}}"><label for="option2">{{poll.option2}}</label>
+    <input type="radio" name="option" id="option3" value="{{poll.option3}}"><label for="option3">{{poll.option3}}</label>
+    <input type="radio" name="option" id="option4" value="{{poll.option4}}"><label for="option4">{{poll.option4}}</label>
+    <input type="hidden" name="pollid" value={{poll.id}}>
+    <button type="submit">Vote</button>
+</form>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}

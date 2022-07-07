@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<a href="{% url 'create-poll' %}" class="float-end btn btn-primary my-2">create poll</a>
+<h1>Created Polls</h1>
+
+<ol class="list-group list-group-numbered">
+   
+{% for poll in polls %}
+   <li class="list-group-item"><a href="{% url 'poll' poll.id %}">{{poll.question}}</a> -  by {{poll.createdby}}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
